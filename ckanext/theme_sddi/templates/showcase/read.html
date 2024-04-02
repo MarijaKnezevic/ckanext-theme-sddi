@@ -1,0 +1,43 @@
+{% ckan_extends %}
+
+
+{% block package_description %}
+        <h1>
+            {% block page_heading %}
+                {{ name }}
+                {% if pkg.state.startswith('draft') %}
+                    [{{ _('Draft') }}]
+                {% endif %}
+            {% endblock %}
+        </h1>
+
+        {% if pkg.image_display_url %}
+            <p class="ckanext-showcase-image-container"><img src="{{ pkg.image_display_url }}" alt="{{ name }}" class="media-image ckanext-showcase-image img-fluid"></p>
+        {% endif %}
+
+    {% block package_notes %}
+        <h2>
+            {{ _("Description") }}
+        </h2>
+        {% if pkg.showcase_notes_formatted and editor == 'ckeditor' %}
+            <div class="ck-content">
+            {{ pkg.showcase_notes_formatted|safe }}
+            </div>
+        {% elif pkg.showcase_notes_formatted %}
+            <div class="notes embedded-content ckanext-showcase-notes">
+            {{ pkg.showcase_notes_formatted }}
+            </div>
+        {% endif %}
+    {% endblock %}
+
+    {% block show_packages %}
+            {% set showcase_pkgs = g.showcase_pkgs %}
+            {% if showcase_pkgs %}
+                <h2>
+                    {{ _("Dataset(s) used in Showcase") }}
+                </h2>
+            
+                {{ h.snippet('snippets/package_list.html', packages=showcase_pkgs) }}
+            {% endif %}
+    {% endblock %}
+{% endblock %}

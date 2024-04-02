@@ -1,11 +1,11 @@
-# theme_sddi-js:
-#   filter: rjsmin
-#   output: ckanext-theme_sddi/%(version)s-theme_sddi.js
-#   contents:
-#     - js/theme_sddi.js
-#   extra:
-#     preload:
-#       - base/main
+scripts:
+  filter: rjsmin
+  output: ckanext-theme_sddi/%(version)s-scripts.js
+  contents:
+    - js/show-hide-fields.js
+  extra:
+    preload:
+      - base/main
 
 # theme_sddi-css:
 #   filter: cssrewrite
