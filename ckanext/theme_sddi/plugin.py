@@ -5,7 +5,10 @@ from ckan import authz, model
 # import ckanext.theme_sddi.cli as cli
 # import ckanext.theme_sddi.helpers as helpers
 # import ckanext.theme_sddi.views as views
-from ckanext.theme_sddi.logic import action, auth, validators
+import ckanext.theme_sddi.logic.action as action
+import ckanext.theme_sddi.logic.auth as auth
+import ckanext.theme_sddi.logic.validators as validators
+#from ckanext.theme_sddi.logic import action, auth, validators
 from ckanext.theme_sddi.permission_labels import PermissionLabels
 
 
