@@ -27,6 +27,13 @@
     {"title": "Landwirtschaft", "name": "agriculture", "image_url": "/base/images/group_icons/agriculture.svg", "groups": [{"capacity": "public", "name": "topics"}]},
     {"title": "Gewerbe / Handwerk", "name": "craft", "image_url": "/base/images/group_icons/craft.svg", "groups": [{"capacity": "public", "name": "topics"}]},
     {"title": "Arbeiten", "name": "work", "image_url": "/base/images/group_icons/work.svg", "groups": [{"capacity": "public", "name": "topics"}]}
+    
+    {"title": "Landwirtschaftliche Forschungsstationen", "name": "landwirtschaftliche-forschungsstationen"},
+    {"title": "Forschungsstation Thalhausen", "name": "research-station-thalhausen", "groups": [{"capacity": "public", "name": "landwirtschaftliche-forschungsstationen"}]},
+    {"title": "Forschungsstation Veitshof", "name": "research-station-veitshof", "groups": [{"capacity": "public", "name": "landwirtschaftliche-forschungsstationen"}]},
+    {"title": "Forschungsstation Viehhausen", "name": "research-station-viehhausen", "groups": [{"capacity": "public", "name": "landwirtschaftliche-forschungsstationen"}]},
+    {"title": "Forschungsstation Roggenstein", "name": "research-station-roggenstein", "groups": [{"capacity": "public", "name": "landwirtschaftliche-forschungsstationen"}]},
+    {"title": "Forschungsstation Dürnast", "name": "research-station-duernast", "groups": [{"capacity": "public", "name": "landwirtschaftliche-forschungsstationen"}]}
 ],
 
 "organizations": [
