@@ -8,7 +8,7 @@
     {"title": "Software", "name": "software", "groups": [{"capacity": "public", "name": "main-categories"}]},
     {"title": "Online-Anwendung", "name": "online-application", "groups": [{"capacity": "public", "name": "main-categories"}]},
     {"title": "Tier", "name": "animal", "groups": [{"capacity": "public", "name": "main-categories"}]},
-    {"title": "Landschaftsobjekt", "name": "landscape-object", groups": [{"capacity": "public", "name": "main-categories"}]},
+    {"title": "Landschaftsobjekt", "name": "landscape-object", "groups": [{"capacity": "public", "name": "main-categories"}]},
 
     {"title": "Themen", "name": "topics"},
     {"title": "Technik", "name": "technology", "groups": [{"capacity": "public", "name": "topics"}]},
