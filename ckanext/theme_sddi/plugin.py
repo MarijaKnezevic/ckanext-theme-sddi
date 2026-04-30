@@ -11,7 +11,7 @@ from ckanext.theme_sddi import middleware
 import ckanext.theme_sddi.logic as logic
 from ckan.lib.plugins import DefaultTranslation
 
-
+from flask import Blueprint
 from ckan.plugins import toolkit as tk
 
 log = logging.getLogger(__name__)
@@ -28,12 +28,23 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
     plugins.implements(plugins.IClick)
     plugins.implements(plugins.IFacets, inherit=True)
     plugins.implements(plugins.ITranslation)
+    plugins.implements(plugins.IBlueprint)
 
     # IConfigurer
     def update_config(self, config_):
         tk.add_template_directory(config_, "templates")
         tk.add_public_directory(config_, "public")
         tk.add_resource("assets", "theme_sddi")
+
+    # IBlueprint
+    def get_blueprint(self):
+        blueprint = Blueprint('theme_sddi_blueprint', __name__)
+
+        @blueprint.route('/new-catalog-entry')
+        def new_catalog_entry():
+            return tk.render('package/new_type_select.html')
+
+        return blueprint
 
     # IActions
     def get_actions(self):
@@ -63,7 +74,6 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
         return schema
 
     # ITemplateHelpers
-
     def get_helpers(self):
         return {
             "get_selected_group": h.get_selected_group,
@@ -77,12 +87,10 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
         }
 
     # IClick
-
     def get_commands(self):
         return cli.get_commands()
 
     # IMiddleware
-
     def make_middleware(self, app, config):
         app.before_request(middleware.ckanext_before_request)
         app.after_request(middleware.ckanext_after_request)
@@ -90,11 +98,9 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
 
     # IFacets
     def dataset_facets(self, facets_dict, package_type):
-        # Get Main and Topics group
         del facets_dict['groups']
         facets_dict['main'] = tk._('Main Categories')
         facets_dict['topic'] = tk._('Topics')
-
         return facets_dict
 
     # IPackageController
@@ -102,7 +108,6 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
         return self.before_index(pkg_dict)
 
     def before_index(self, pkg_dict):
-        # Get the group hierarchy
         groups = pkg_dict.get("groups", [])
 
         topic_names = []
@@ -121,7 +126,7 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
 
     def after_dataset_search(self, search_results, search_params):
         context = {'with_capacity': False}
-        restricted_package_search_result = {}  # Define the variable here
+        restricted_package_search_result = {}
         for key, value in search_results.items():
             if key == 'results':
                 restricted_package_search_result_list = []
@@ -141,7 +146,6 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
     def before_dataset_view(self, data_dict):
         data_dict['resources'] = action._resource_list_hide_fields(
             data_dict.get('resources', []))
-
         return data_dict
 
     # IResourceController

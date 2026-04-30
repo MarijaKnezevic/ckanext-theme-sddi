@@ -1,0 +1,168 @@
+{% extends "page.html" %}
+
+{% block subtitle %}{{ _('Neuen Katalogeintrag hinzufügen') }}{% endblock %}
+
+{% block content %}
+{{ self.flash() }}
+<div class="container" style="margin-top: 30px; margin-bottom: 50px;">
+  <div class="row">
+
+    <!-- Left: Description panel -->
+    <div class="col-md-3" style="margin-bottom: 30px;">
+      <div style="background-color: #2a6099; color: white; padding: 12px 15px; border-radius: 4px 4px 0 0; font-size: 1.1em; font-weight: bold;">
+        <i class="fa fa-info-circle"></i> Über den Katalog
+      </div>
+      <div style="border: 1px solid #ddd; border-top: none; padding: 18px; border-radius: 0 0 4px 4px; background: #f9f9f9; font-size: 0.9em; color: #444; line-height: 1.6;">
+
+        <p>Dieser Katalog ist Teil der <strong>Smart District Data Infrastructure (SDDI)</strong> – einem offenen, modularen Rahmenwerk zur Verwaltung von Daten, Diensten und Ressourcen für urbane digitale Zwillinge.</p>
+
+        <p>Für jede Hauptkategorie steht eine <strong>vordefinierte Metadatenmaske</strong> zur Verfügung. Whlen Sie die Hauptkategorie aus, die der Informationsressource entspricht, die Sie als Katalogeintrag erstellen möchten.</p>
+
+        <hr style="border-color: #ddd;">
+        <p style="font-size: 0.85em; color: #888;">
+          Weitere Informationen zur SDDI-Methodik:
+          <a href="https://www.asg.ed.tum.de/gis/projekte/sddi/" target="_blank" style="color: #2a6099;">
+            Lehrstuhl für Geoinformatik, TU München
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Right: Category grid -->
+    <div class="col-md-9">
+      <div style="background-color: #2a6099; color: white; text-align: center; padding: 12px; border-radius: 4px 4px 0 0; font-size: 1.3em; font-weight: bold;">
+        Hauptkategorien
+      </div>
+      <div style="border: 1px solid #ddd; border-top: none; padding: 20px; border-radius: 0 0 4px 4px;">
+        <div class="row">
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/dataset/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/dataset.jpg" alt="Datensatz">
+                <p>Datensatz und Dokumente</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/online-service/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/online_service.png" alt="Online-Dienst">
+                <p>Online-Dienst</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/project/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/project.png" alt="Projekt">
+                <p>Projekt</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/software/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/software.png" alt="Software">
+                <p>Software</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/online-application/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/online_application.svg" alt="Online-Anwendung">
+                <p>Online-Anwendung</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/method/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/method.png" alt="Methode">
+                <p>Methode</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/device/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/device.svg" alt="Gerät / Ding">
+                <p>Gerät / Ding</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/geoobject/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/geoobject.svg" alt="Geoobjekt">
+                <p>Geoobjekt</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-xs-6" style="margin-bottom: 20px;">
+            <a href="/digital-twin/new" class="category-card">
+              <div class="category-box">
+                <img src="/base/images/group_icons/dz-logo.jpg" alt="Digitaler Zwilling">
+                <p>Digitaler Zwilling</p>
+              </div>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  .category-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .category-box {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px 10px;
+    text-align: center;
+    background: #fff;
+    height: 210px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .category-box:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-color: #2a6099;
+  }
+
+  .category-box img {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 12px;
+  }
+
+  .category-box p {
+    margin: 0;
+    font-weight: bold;
+    color: #2a6099;
+    font-size: 0.95em;
+    text-align: center;
+  }
+</style>
+{% endblock content %}

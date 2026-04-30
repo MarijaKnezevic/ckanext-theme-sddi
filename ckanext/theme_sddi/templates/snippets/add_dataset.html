@@ -1,0 +1,79 @@
+<div class="btn-group">
+<a class="btn btn-primary" href="/new-catalog-entry">
+  <i class="fa fa-plus-square"></i> Add New Catalog Entry
+</a>
+  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu">
+    <li>
+      <a href="/dataset/new">
+        <i class="fa fa-table"></i> Add Dataset
+      </a>
+    </li>
+    <li>
+      <a href="/online-service/new">
+        <i class="fa fa-globe"></i> Add Online Service
+      </a>
+    </li>
+    <li>
+      <a href="/project/new">
+        <i class="fa fa-folder-plus"></i> Add Project
+      </a>
+    </li>
+    <li>
+      <a href="/software/new">
+        <i class="fa fa-laptop-code"></i> Add Software
+      </a>
+    </li>
+    <li>
+      <a href="/online-application/new">
+        <i class="fa fa-window-maximize"></i> Add Online Application
+      </a>
+    </li>
+    <li>
+      <a href="/method/new">
+        <i class="fa fa-flask"></i> Add Method
+      </a>
+    </li>
+    <li>
+      <a href="/device/new">
+        <i class="fa fa-microchip"></i> Add Device
+      </a>
+    </li>
+    <li>
+      <a href="/geoobject/new">
+        <i class="fa fa-map-marker-alt"></i> Add Geoobject
+      </a>
+    </li>
+    <li>
+      <a href="/digital-twin/new">
+        <i class="fa fa-cube"></i> Add Digital Twin
+      </a>
+    </li>
+  </ul>
+</div>
+
+<style>
+.btn-group .dropdown-menu { display: none; }
+.btn-group.open .dropdown-menu { display: block; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var toggle = document.querySelector('.dropdown-toggle');
+  var btnGroup = toggle ? toggle.closest('.btn-group') : null;
+  if (toggle && btnGroup) {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      btnGroup.classList.toggle('open');
+    });
+    document.addEventListener('click', function() {
+      btnGroup.classList.remove('open');
+    });
+  }
+});
+</script>
+
+{% asset 'theme_sddi/add_dataset_dropdown_js' %}
