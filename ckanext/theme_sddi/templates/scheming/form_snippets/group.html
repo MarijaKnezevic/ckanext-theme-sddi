@@ -173,13 +173,15 @@ function show_checkboxes(a, show_checkboxes_after_checking=true){
 {% if not data.groups %}
 
 
+	{% set preset_group = request.args.get('group', '') %}
 	<label class="control-label" for="field-group"><span title="This field is required" class="control-required">* </span>Hauptkategorien</label>
 	<div class="controls">
 		<select id="field-group" name="groups__0__id" data-module="autocomplete">
-			<!--option value=""selected="selected">Bitte wählen Sie</option-->
-			{% for group in h.get_allowable_children_groups('main-categories')  %}
-				{% set existing_group_id = group.id %}
-					<option value="{{ group.id }}">{{ group.title }}</option>
+			{% for group in h.get_allowable_children_groups('main-categories') if group.name == preset_group %}
+				<option value="{{ group.id }}">{{ group.title }}</option>
+			{% endfor %}
+			{% for group in h.get_allowable_children_groups('main-categories') if group.name != preset_group %}
+				<option value="{{ group.id }}">{{ group.title }}</option>
 			{% endfor %}
 		</select>
 	</div>
