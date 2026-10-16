@@ -1,6 +1,8 @@
 import os
 import json
 import click
+import urllib.request
+import urllib.error
 
 import ckan.lib.navl.dictization_functions as dict_fns
 import ckan.plugins.toolkit as tk
@@ -65,6 +67,46 @@ def init_data():
         fg="green",
         bold=True
     )
+
+
+@theme_sddi.command("setup-solr")
+@click.option("--solr-url", default=None, help="Solr URL (default: read from ckan.ini)")
+def setup_solr(solr_url):
+    """Add required multiValued Solr fields for SDDI (topic, main)."""
+    if solr_url is None:
+        solr_url = tk.config.get("solr_url", "http://localhost:8983/solr/ckan")
+
+    fields = [
+        {"name": "topic", "type": "string", "indexed": True, "stored": True, "multiValued": True},
+        {"name": "main",  "type": "string", "indexed": True, "stored": True, "multiValued": False},
+    ]
+
+    schema_url = solr_url.rstrip("/") + "/schema"
+
+    for field in fields:
+        payload = json.dumps({"add-field": field}).encode("utf-8")
+        req = urllib.request.Request(
+            schema_url,
+            data=payload,
+            headers={"Content-Type": "application/json"},
+            method="POST",
+        )
+        try:
+            with urllib.request.urlopen(req) as resp:
+                result = json.loads(resp.read())
+                if result.get("responseHeader", {}).get("status") == 0:
+                    click.secho(f"  ✓ Field '{field['name']}' added.", fg="green")
+                else:
+                    click.secho(f"  ! Unexpected response for '{field['name']}': {result}", fg="yellow")
+        except urllib.error.HTTPError as e:
+            body = e.read().decode("utf-8", errors="replace")
+            if "already exists" in body:
+                click.secho(f"  ✓ Field '{field['name']}' already exists, skipping.", fg="cyan")
+            else:
+                click.secho(f"  ✗ Failed to add field '{field['name']}': {body}", fg="red")
+                raise click.Abort()
+
+    click.secho("\nSolr schema setup complete.", fg="green", bold=True)
 
 
 def get_commands():

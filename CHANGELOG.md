@@ -15,6 +15,9 @@ For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 - Category marker colors on dataset listing and detail pages now use named CSS classes based on main category instead of positional classes (`zero`–`eight`), so colors remain correct regardless of category order.
 - Hovering over a main category card on the new catalog entry page now shows a short description of that category.
 
+### Fixed
+- Multiple topics can now be assigned to a catalog entry — a new `ckan theme-sddi setup-solr` command registers the `topic` Solr field as `multiValued`, preventing the 500 error that occurred when more than one topic was selected (see [#21](https://github.com/MarijaKnezevic/ckanext-theme-sddi/issues/21)).
+
 ## [0.0.4] - 2025-02-18
 
 ### Fixed
