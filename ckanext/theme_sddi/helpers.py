@@ -1,11 +1,16 @@
 import os
 import json
+import copy
 import requests
 
 import ckan.model as model
 from ckan.plugins import toolkit as tk
 from ckan.lib.dictization import model_dictize
 from ckanext.hierarchy import helpers
+from ckan.lib.helpers import MARKDOWN_TAGS, MARKDOWN_ATTRIBUTES, html_auto_link
+from markdown import markdown
+from bleach import clean as bleach_clean
+from markupsafe import Markup
 
 
 HERE = os.path.dirname(__file__)
@@ -183,6 +188,30 @@ def is_github_url(url):
     from urllib.parse import urlparse
     parsed_url = urlparse(url)
     return parsed_url.netloc.endswith('github.com')
+
+
+_SDDI_MARKDOWN_ATTRIBUTES = copy.deepcopy(MARKDOWN_ATTRIBUTES)
+_SDDI_MARKDOWN_ATTRIBUTES.setdefault('img', []).extend(['width', 'height', 'style'])
+
+
+def render_markdown(data, auto_link=True, allow_html=False):
+    """Like CKAN's render_markdown but allows width/height/style on img tags.
+
+    Skips RE_MD_HTML_TAGS pre-stripping so that <img> tags survive into bleach,
+    which then sanitizes them against the extended allowlist.
+    """
+    if not data:
+        return ''
+    if allow_html:
+        data = markdown(data.strip())
+    else:
+        data = bleach_clean(
+            markdown(data.strip()), strip=True,
+            tags=MARKDOWN_TAGS,
+            attributes=_SDDI_MARKDOWN_ATTRIBUTES)
+    if auto_link:
+        data = html_auto_link(data)
+    return Markup(data)
 
 
 def is_spatial_enabled():

@@ -84,6 +84,7 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
             "get_recently_modified_group": h.get_recently_modified_group,
             "is_spatial_enabled": h.is_spatial_enabled,
             "restricted_get_user_id": h.restricted_get_user_id,
+            "render_markdown": h.render_markdown,
         }
 
     # IClick
