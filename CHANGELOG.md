@@ -11,6 +11,9 @@ For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 ### Changed
 - Resources are now optional when creating a catalog entry — clicking **Finish** on the resource step without adding a resource activates the dataset and redirects to its page directly.
 
+### Added
+- Category marker colors on dataset listing and detail pages now use named CSS classes based on main category instead of positional classes (`zero`–`eight`), so colors remain correct regardless of category order.
+
 ## [0.0.4] - 2025-02-18
 
 ### Fixed
