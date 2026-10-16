@@ -13,6 +13,7 @@ For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 
 ### Added
 - Category marker colors on dataset listing and detail pages now use named CSS classes based on main category instead of positional classes (`zero`–`eight`), so colors remain correct regardless of category order.
+- Hovering over a main category card on the new catalog entry page now shows a short description of that category.
 
 ## [0.0.4] - 2025-02-18
 

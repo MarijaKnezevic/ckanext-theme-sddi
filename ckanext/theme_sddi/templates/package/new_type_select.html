@@ -41,6 +41,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/dataset.jpg" alt="Datensatz">
                 <p>Datensatz und Dokumente</p>
+                <div class="category-tooltip">Enthält Dokumente und Informationen zu jeder beliebigen Informationsressource einer Stadt, die als Dateien entweder im Katalog selbst oder an anderer Stelle gespeichert sind.</div>
               </div>
             </a>
           </div>
@@ -50,6 +51,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/online_service.png" alt="Online-Dienst">
                 <p>Online-Dienst</p>
+                <div class="category-tooltip">Enthält Daten, die über eine API bereitgestellt werden und keine Endbenutzeroberfläche haben (z. B. Web Feature Service, der Zugang zu Geodaten bietet).</div>
               </div>
             </a>
           </div>
@@ -59,6 +61,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/project.png" alt="Projekt">
                 <p>Projekt</p>
+                <div class="category-tooltip">Umfasst alle geplanten, begonnenen oder abgeschlossenen Aktivitäten, die zur Erreichung eines bestimmten Ziels oder einer bestimmten Aufgabe führen.</div>
               </div>
             </a>
           </div>
@@ -68,6 +71,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/software.png" alt="Software">
                 <p>Software</p>
+                <div class="category-tooltip">Repräsentiert ein spezifisches Werkzeug oder System, z. B. den FROST Server für die OGC SensorThings API oder spezifische Bibliotheken wie citygml4j.</div>
               </div>
             </a>
           </div>
@@ -77,6 +81,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/online_application.svg" alt="Online-Anwendung">
                 <p>Online-Anwendung</p>
+                <div class="category-tooltip">Enthält Daten, die über eine API bereitgestellt werden, und verfügt über eine Benutzeroberfläche (z. B. für die Erkundung von Online-3D-Simulationen).</div>
               </div>
             </a>
           </div>
@@ -86,6 +91,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/method.png" alt="Methode">
                 <p>Methode</p>
+                <div class="category-tooltip">Stellt Funktionen oder Algorithmen dar, die von einem Experten entwickelt wurden, um eine bestimmte Aufgabe zu erfüllen (z. B. ein Algorithmus zur Analyse des Sonnenpotenzials).</div>
               </div>
             </a>
           </div>
@@ -95,6 +101,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/device.svg" alt="Gerät / Ding">
                 <p>Gerät / Ding</p>
+                <div class="category-tooltip">Umfasst alle physischen Geräte, wie z. B. Sensoren und Aktoren.</div>
               </div>
             </a>
           </div>
@@ -104,6 +111,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/geoobject.svg" alt="Geoobjekt">
                 <p>Geoobjekt</p>
+                <div class="category-tooltip">Ein Objekt mit einer klar definierten geografischen Komponente (z. B. Gebäude, Straßenlaterne, Bank).</div>
               </div>
             </a>
           </div>
@@ -113,6 +121,7 @@
               <div class="category-box">
                 <img src="/base/images/group_icons/dz-logo.jpg" alt="Digitaler Zwilling">
                 <p>Digitaler Zwilling</p>
+                <div class="category-tooltip">Eine Sammlung digitaler Ressourcen für ein bestimmtes Thema oder geografisches Gebiet – vergleichbar mit einem Warenkorb, in dem alle Informationsressourcen für einen Anwendungsfall gesammelt werden.</div>
               </div>
             </a>
           </div>
@@ -132,6 +141,7 @@
   }
 
   .category-box {
+    position: relative;
     border: 1px solid #ddd;
     border-radius: 4px;
     padding: 20px 10px;
@@ -148,6 +158,39 @@
   .category-box:hover {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     border-color: #2a6099;
+  }
+
+  .category-tooltip {
+    display: none;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px;
+    background: #2a6099;
+    color: #fff;
+    font-size: 0.82em;
+    font-weight: normal;
+    line-height: 1.5;
+    padding: 8px 12px;
+    border-radius: 4px;
+    z-index: 10;
+    text-align: left;
+    pointer-events: none;
+  }
+
+  .category-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #2a6099;
+  }
+
+  .category-box:hover .category-tooltip {
+    display: block;
   }
 
   .category-box img {
