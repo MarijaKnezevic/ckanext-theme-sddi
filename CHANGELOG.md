@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 
+## [Unreleased]
+
+### Changed
+- Resources are now optional when creating a catalog entry — clicking **Finish** on the resource step without adding a resource activates the dataset and redirects to its page directly.
+
 ## [0.0.4] - 2025-02-18
 
 ### Fixed
