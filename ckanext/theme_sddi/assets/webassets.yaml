@@ -21,3 +21,8 @@ theme_css:
     - css/theme.css
     - css/restricted_theme.css
 
+leaflet_draw_icons_css:
+  output: ckanext-theme-sddi/%(version)s_leaflet_draw_icons.css
+  contents:
+    - css/leaflet_draw_icons.css
+

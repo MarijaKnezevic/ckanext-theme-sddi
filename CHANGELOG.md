@@ -16,6 +16,7 @@ For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 - Hovering over a main category card on the new catalog entry page now shows a short description of that category.
 
 ### Fixed
+- Leaflet.draw toolbar icons (draw polygon, circle marker, etc.) are now visible in the spatial extent form — sprite images were not copied to the webassets output directory and are now served from the plugin's public directory with an absolute-path CSS override.
 - Multiple topics can now be assigned to a catalog entry — a new `ckan theme-sddi setup-solr` command registers the `topic` Solr field as `multiValued`, preventing the 500 error that occurred when more than one topic was selected (see [#21](https://github.com/MarijaKnezevic/ckanext-theme-sddi/issues/21)).
 - Images in markdown descriptions can now be resized using `width`, `height`, and `style` attributes (see [#20](https://github.com/MarijaKnezevic/ckanext-theme-sddi/issues/20)).
 

@@ -1,0 +1,9 @@
+/* Fix leaflet.draw toolbar icons whose relative paths break when bundled by webassets */
+.leaflet-draw-toolbar a {
+    background-image: url('/images/leaflet-draw/spritesheet.png');
+    background-image: linear-gradient(transparent, transparent), url('/images/leaflet-draw/spritesheet.svg');
+}
+.leaflet-retina .leaflet-draw-toolbar a {
+    background-image: url('/images/leaflet-draw/spritesheet-2x.png');
+    background-image: linear-gradient(transparent, transparent), url('/images/leaflet-draw/spritesheet.svg');
+}
