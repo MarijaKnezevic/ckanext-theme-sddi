@@ -48,7 +48,7 @@
          
           {%- call form.input_block(
             for='field-' + name,
-            label=h.scheming_language_text(subfield.label) + subfields_repeating_label + ' ' + index|string,
+            label=h.scheming_language_text(subfield.label) + subfields_repeating_label,
             error=errors[name],
             classes=classses,
             control_classes=[],
