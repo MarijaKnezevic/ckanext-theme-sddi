@@ -166,7 +166,7 @@ this.ckan.module('spatial-form', function (jQuery, _) {
               draw: {
                   polyline: false,
                   circle: false,
-                  marker: false,
+                  marker: true,
                   rectangle: {repeatMode: false}
   
               },
@@ -175,17 +175,24 @@ this.ckan.module('spatial-form', function (jQuery, _) {
           map.addControl(drawControl);
   
   
-          /* Aggregate all features in a FeatureGroup into one MultiPolygon, 
-           * update inputid with that Multipolygon's geometry 
+          /* Aggregate features into one geometry.
+           * Sensor groups (is_sensor_group=true): MultiPoint from markers.
+           * Otherwise: MultiPolygon from polygons/rectangles.
            */
           var featureGroupToInput = function(fg, input){
               var gj = drawnItems.toGeoJSON().features;
-              var polyarray = [];
-              $.each(gj, function(index, value){ polyarray.push(value.geometry.coordinates); });
-              mp = {"type": "MultiPolygon", "coordinates": polyarray};
-              // TODO use input for element id
+              var isSensorGroup = $('#field-is_sensor_group').val() === 'true';
+              var mp;
+              if (isSensorGroup) {
+                  var coords = [];
+                  $.each(gj, function(idx, val) { coords.push(val.geometry.coordinates); });
+                  mp = {"type": "MultiPoint", "coordinates": coords};
+              } else {
+                  var polyarray = [];
+                  $.each(gj, function(index, value){ polyarray.push(value.geometry.coordinates); });
+                  mp = {"type": "MultiPolygon", "coordinates": polyarray};
+              }
               $('#field-spatial').val(JSON.stringify(mp));
-              //$("#" + input).val(JSON.stringify(mp)); // doesn't work
           };
   
   
