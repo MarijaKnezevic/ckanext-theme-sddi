@@ -85,6 +85,7 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
             "is_spatial_enabled": h.is_spatial_enabled,
             "restricted_get_user_id": h.restricted_get_user_id,
             "render_markdown": h.render_markdown,
+            "sddi_get_organizations": h.sddi_get_organizations,
         }
 
     # IClick

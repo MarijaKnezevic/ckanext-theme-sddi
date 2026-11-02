@@ -222,3 +222,17 @@ def is_spatial_enabled():
 
 def restricted_get_user_id():
     return tk.g.user
+
+
+def sddi_get_organizations(field=None):
+    try:
+        orgs = tk.get_action('organization_list')(
+            {'ignore_auth': True},
+            {'all_fields': True}
+        )
+        return [
+            {'value': org['name'], 'label': org.get('display_name') or org.get('title') or org['name']}
+            for org in orgs
+        ]
+    except Exception:
+        return []
