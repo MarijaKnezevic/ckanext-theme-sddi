@@ -6,19 +6,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 
-## [Unreleased]
+## [0.1.0] - 2026-11-03
 
-### Changed
-- Resources are now optional when creating a catalog entry — clicking **Finish** on the resource step without adding a resource activates the dataset and redirects to its page directly.
+> Requires `ckanext-scheme-sddi >= 0.1.0`
 
 ### Added
-- Category marker colors on dataset listing and detail pages now use named CSS classes based on main category instead of positional classes (`zero`–`eight`), so colors remain correct regardless of category order.
-- Hovering over a main category card on the new catalog entry page now shows a short description of that category.
+- HTML for selection of predefined schemas on catalog entry creation
+- Auto-select main category group based on dataset type selection
+- Hover tooltips with descriptions on main category cards
+- `isRawData` and `dataModification` fields with conditional UI visibility for Device category
+- Multi-select field for involved organizations
+- CSS counter for composite repeating field group numbering
+- Category marker colors now use named CSS classes based on main category instead of positional classes
+
+### Changed
+- Resources are now optional when creating a catalog entry — clicking **Finish** without adding a resource redirects directly to the dataset page
+- Registered `IResourceController` so resource update hooks fire correctly for email notifications
 
 ### Fixed
-- Leaflet.draw toolbar icons (draw polygon, circle marker, etc.) are now visible in the spatial extent form — sprite images were not copied to the webassets output directory and are now served from the plugin's public directory with an absolute-path CSS override.
-- Multiple topics can now be assigned to a catalog entry — a new `ckan theme-sddi setup-solr` command registers the `topic` Solr field as `multiValued`, preventing the 500 error that occurred when more than one topic was selected (see [#21](https://github.com/MarijaKnezevic/ckanext-theme-sddi/issues/21)).
-- Images in markdown descriptions can now be resized using `width`, `height`, and `style` attributes (see [#20](https://github.com/MarijaKnezevic/ckanext-theme-sddi/issues/20)).
+- Removed deprecated `h.popular` helper call from resource template that caused a crash when a restricted resource was rendered
+- Composite repeating display crash when `form_blanks` is not defined
+- Composite repeating display: each subfield now shown on its own line
+- MultiPoint geometry constraint enforced for sensor group devices
+- CRS fields shown only when a spatial data type is selected in Dataset and Documents form
+- Leaflet.draw toolbar icons now visible in the spatial extent form
+- Multiple topics can now be assigned to a catalog entry (see [#21](https://github.com/MarijaKnezevic/ckanext-theme-sddi/issues/21))
+- Images in markdown descriptions can now be resized using `width`, `height`, and `style` attributes (see [#20](https://github.com/MarijaKnezevic/ckanext-theme-sddi/issues/20))
 
 ## [0.0.4] - 2025-02-18
 
@@ -60,7 +73,8 @@ Path to the location of the images in the main category and theme, and the image
 
 ### Known issues
 
-[Unreleased]: https://github.com/MarijaKnezevic/ckanext-theme-sddi/compare/0.0.3...HEAD
+[Unreleased]: https://github.com/MarijaKnezevic/ckanext-theme-sddi/compare/0.1.0...HEAD
+[0.1.0]: https://github.com/MarijaKnezevic/ckanext-theme-sddi/compare/0.0.4...0.1.0
 [0.0.4]: https://github.com/MarijaKnezevic/ckanext-theme-sddi/compare/0.0.3...0.0.4
 [0.0.3]: https://github.com/MarijaKnezevic/ckanext-theme-sddi/compare/0.0.2...0.0.3
 [0.0.2]: https://github.com/MarijaKnezevic/ckanext-theme-sddi/compare/0.0.1...0.0.2
