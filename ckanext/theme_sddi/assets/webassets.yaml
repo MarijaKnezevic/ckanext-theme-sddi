@@ -21,6 +21,14 @@ theme_css:
     - css/theme.css
     - css/restricted_theme.css
 
+distribution_wizard_js:
+  output: ckanext-theme-sddi/%(version)s_distribution_wizard.js
+  extra:
+    preload:
+      - base/main
+  contents:
+    - js/distribution_wizard.js
+
 crs_required_js:
   output: ckanext-theme-sddi/%(version)s_crs_required.js
   extra:

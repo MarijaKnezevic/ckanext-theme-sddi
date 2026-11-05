@@ -1,5 +1,6 @@
 import logging
 import json
+import threading
 
 import ckan.plugins as plugins
 
@@ -15,6 +16,69 @@ from flask import Blueprint
 from ckan.plugins import toolkit as tk
 
 log = logging.getLogger(__name__)
+
+# Guard against re-entrant calls: resource_create triggers after_dataset_update
+_placeholder_guard = threading.local()
+
+# Per dataset_type: list of (schema_field_name, resource_name_to_create)
+_TYPE_DIST_MAP = {
+    'dataset_documents': [('has_distribution',       'Content URL')],
+    'project':           [('has_distribution',       'Project URI')],
+    'online-service':    [('has_linkage',             'Linkage'),
+                          ('has_external_docs',       'External Documentation'),
+                          ('has_open_api_document',   'OpenAPI Document')],
+    'software':          [('has_software_help',       'Software Help'),
+                          ('has_documentation_url',   'Documentation URL'),
+                          ('has_code_repository_url', 'Code Repository URL')],
+    'online-application':[('has_external_docs',       'External Documentation'),
+                          ('has_service_doc',         'Service Documentation')],
+}
+
+
+def _field_value(pkg_dict, field_name):
+    """Return field value from pkg_dict — checks top-level keys (scheming) and extras list."""
+    val = pkg_dict.get(field_name)
+    if val is not None:
+        return val
+    for extra in pkg_dict.get('extras', []):
+        if extra.get('key') == field_name:
+            return extra.get('value')
+    return None
+
+
+def _create_distribution_placeholders(context, pkg_dict):
+    """Auto-create placeholder resources for every has_* field set to 'yes'."""
+    if getattr(_placeholder_guard, 'active', False):
+        return
+
+    dataset_type = pkg_dict.get('type', '')
+    dist_fields = _TYPE_DIST_MAP.get(dataset_type)
+    if not dist_fields:
+        return
+
+    # Use a fresh package_show to get the real current resource list —
+    # pkg_dict from the hook only reflects the submitted form, not existing resources.
+    try:
+        fresh = tk.get_action('package_show')(
+            {'ignore_auth': True},
+            {'id': pkg_dict['id']},
+        )
+    except Exception:
+        return
+
+    existing_names = {r.get('name', '') for r in fresh.get('resources', [])}
+
+    _placeholder_guard.active = True
+    try:
+        for field_name, resource_name in dist_fields:
+            if _field_value(pkg_dict, field_name) == 'yes' and resource_name not in existing_names:
+                tk.get_action('resource_create')(
+                    {'ignore_auth': True, 'user': context.get('user')},
+                    {'package_id': pkg_dict['id'], 'name': resource_name},
+                )
+                existing_names.add(resource_name)
+    finally:
+        _placeholder_guard.active = False
 
 
 class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
@@ -145,6 +209,9 @@ class ThemeSddiPlugin(plugins.SingletonPlugin, DefaultTranslation):
             else:
                 restricted_package_search_result[key] = value
         return restricted_package_search_result
+
+    def after_dataset_update(self, context, pkg_dict):
+        _create_distribution_placeholders(context, pkg_dict)
 
     def before_dataset_view(self, data_dict):
         data_dict['resources'] = action._resource_list_hide_fields(

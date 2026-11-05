@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 
-## [0.1.0] - 2026-11-03
+## [0.1.0] - Unreleased
 
 > Requires `ckanext-scheme-sddi >= 0.1.0`
 
@@ -18,6 +18,9 @@ For releases `< 1.0.0` minor version steps may indicate breaking changes too.
 - Multi-select field for involved organizations
 - CSS counter for composite repeating field group numbering
 - Category marker colors now use named CSS classes based on main category instead of positional classes
+- Distribution wizard (`distribution_wizard.js`): on dataset creation, pre-fills the resource Name field for each `has_*` distribution field answered "Yes", opening one resource form per distribution in sequence
+- `after_dataset_update` hook: automatically creates placeholder resources for any `has_*` field set to "Yes" when a dataset is edited and saved (fallback for entries without a resource form step)
+
 
 ### Changed
 - Resources are now optional when creating a catalog entry — clicking **Finish** without adding a resource redirects directly to the dataset page
